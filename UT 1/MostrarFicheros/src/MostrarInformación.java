@@ -2,11 +2,11 @@
 import java.io.File;
 import java.io.IOException;
 
-public class ListadoDirectorio {
+class ListadoDirectorio {
     public static void main(String[] args) {
         String ruta = ".";
         if (args.length >= 1) {
-            ruta = args;
+            ruta = args[0];
         }
 
         File fich = new File(ruta);

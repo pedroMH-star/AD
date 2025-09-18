@@ -1,0 +1,32 @@
+#Pedro Martinez
+# Default ignored files
+/shelf/
+/workspace.xml
+# Environment-dependent path to Maven home directory
+/mavenHomeManager.xml
+
+# ───────── COMPILACIÓN ─────────
+# Salidas típicas de Maven, Gradle y Java “a pelo”
+/target/
+/build/
+/out/
+/doc/
+*.class
+
+# ───────── IDEs ─────────
+# IntelliJ IDEA
+.idea/
+/*.iml
+*.ipr
+*.iws
+*.iml
+
+# ───────── SISTEMA ─────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ───────── LOGS / TEMP ─────────
+*.log
+*.tmp
+*.bak
