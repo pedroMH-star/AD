@@ -21,6 +21,7 @@ public class LogActividad1 {
             System.out.println("El directorio ya existe.");
         }
 
+        // Crear fichero
         try {
             File logFile = new File(directorio, "seguridad_actividad1.log");
             if (logFile.createNewFile()) {  // Crea el fichero si no existía
@@ -28,6 +29,23 @@ public class LogActividad1 {
             } else {
                 System.out.println("El fichero ya existía: " + logFile.getName());
             }
+
+            // Rotación por renombrado
+            String fecha = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
+            File logRenombrado = new File(directorio, "seguridad_actividad1_" + fecha + ".log");
+            if (logFile.renameTo(logRenombrado)) {
+                System.out.println("Fichero renombrado correctamente a: " + logRenombrado.getName());
+            } else {
+                System.out.println("Error al renombrar el fichero.");
+            }
+
+            // Eliminación
+            if (logRenombrado.delete()) {
+                System.out.println("Fichero eliminado correctamente.");
+            } else {
+                System.out.println("No se pudo eliminar el fichero.");
+            }
+
         } catch (Exception e) {
             System.out.println("Error al crear el fichero: " + e.getMessage());
         }
