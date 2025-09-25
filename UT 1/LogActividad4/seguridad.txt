@@ -1,0 +1,4 @@
+Intento de acceso fallido
+Usuario autenticado correctamente
+Cambio de configuración realizado
+Pedro Martínez Herrero - 25/09/2025 - AD - Act 4
