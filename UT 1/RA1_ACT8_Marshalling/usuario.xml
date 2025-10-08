@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<usuario>
+    <email>pedro.martinez@example.com</email>
+    <id>1</id>
+    <nombre>Pedro Martínez</nombre>
+    <rol>Administrador</rol>
+</usuario>
