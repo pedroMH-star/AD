@@ -1,0 +1,3 @@
+[INFO] Inicio de registro de actividad.
+[INFO] Registro generado correctamente.
+Pedro Martínez Herrero - 14/10/2025 - AD - Examen
