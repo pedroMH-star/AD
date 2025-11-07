@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -5,12 +6,11 @@ import java.sql.Statement;
 
 /**
  * @autor Pedro Martínez Herrero
- * @since 16/10/2025
- * @until 20/10/2025
- * Actividad: Creación de tabla en base de datos
+ * @since 06/11/2025
+ * @until 06/11/2025
  */
 
-public class createTable {
+public class Examen1 {
 
     // Datos de conexión
     private static final String URL = "jdbc:mysql://localhost:3306/ut3";
@@ -18,11 +18,11 @@ public class createTable {
     private static final String PASSWORD = "123456";
 
     public static void main(String[] args) {
-        // Sentencia SQL para crear la tabla clientes
-        String sql = "CREATE TABLE clientes (" +
+        // Sentencia SQL para crear la tabla examen
+        String sql = "CREATE TABLE examen (" +
                      "DNI CHAR(9) NOT NULL PRIMARY KEY, " +
                      "APELLIDOS VARCHAR(32) NOT NULL, " +
-                     "CP CHAR(5) NULL" +
+                     "NOTAS DECIMAL(5,2) NOT NULL" +
                      ");";
 
         // Bloque try-with-resources asegura cierre automático de recursos
@@ -30,10 +30,33 @@ public class createTable {
              Statement statement = connection.createStatement()) {
 
             statement.executeUpdate(sql);
-            System.out.println("Tabla 'clientes' creada correctamente.");
+            System.out.println("Tabla 'examen' creada correctamente.");
 
         } catch (SQLException e) {
             System.out.println("Error al crear la tabla.");
+            muestraErrorSQL(e);
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        }
+
+
+        // Sentencia SQL para insertar múltiples filas
+        String sql2 = "INSERT INTO examen (DNI, APELLIDOS, NOTAS) VALUES " +
+                "('12345678A', 'MARTÍNEZ HERRERO', 7.5);";
+
+        int nFil = 0; // Número de filas insertadas
+
+        // Bloque try-with-resources para asegurar cierre automático de recursos
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Statement statement = connection.createStatement()) {
+
+            nFil = statement.executeUpdate(sql2); // Ejecuta INSERT y devuelve filas afectadas
+            JOptionPane.showMessageDialog(null, "Número de filas insertadas: " + nFil,
+                    "Inserción exitosa", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (
+                SQLException e) {
             muestraErrorSQL(e);
         } catch (Exception e) {
             System.out.println("Ocurrió un error inesperado: " + e.getMessage());
