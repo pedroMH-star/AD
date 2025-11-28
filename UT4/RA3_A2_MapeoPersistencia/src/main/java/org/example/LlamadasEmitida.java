@@ -44,4 +44,9 @@ public class LlamadasEmitida implements java.io.Serializable {
 
     public float getImporteLlamada() { return this.importeLlamada; }
     public void setImporteLlamada(float importeLlamada) { this.importeLlamada = importeLlamada; }
+
+    @PostPersist
+    public void postPersist() {
+
+    }
 }

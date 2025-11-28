@@ -18,11 +18,11 @@ public class Main {
 
     public static  void main(String[] args) {
 
-        // CrearNuevaLlamada();
+        CrearNuevaLlamada();
 
-        // ConsultarRegistroExistente();
+        ConsultarRegistroExistente();
 
-        // ModificarRegistroExistente();
+        ModificarRegistroExistente();
 
         EliminarRegistro();
 

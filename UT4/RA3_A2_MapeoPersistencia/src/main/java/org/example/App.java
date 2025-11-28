@@ -128,8 +128,9 @@ public class App
                     llamada.setImporteLlamada(3.5f);
 
                     // 3. GUARDAR
-                    // "session.persist(llamada)" le avisa a Hibernate que el objeto ha cambiado.
-                    session.persist(llamada);
+                    // NO es necesario llamar a persist() para un objeto persistente,
+                    // commit detectará los cambios automáticamente.
+                    // session.persist(llamada); // OPCIONAL, se puede comentar
 
                     // "transaccion.commit()" detecta los cambios en objetos "Persistentes"
                     // y ejecuta el UPDATE automáticamente.
@@ -161,18 +162,15 @@ public class App
 
             System.out.println("--- RESULTADO DE LA CONSULTA HQL ---");
             for (LlamadasEmitida llamada : llamadas) {
-                // --- ¡ERROR CORREGIDO! ---
-                // Tu `println` original estaba mal.
-                // El código de llamada se obtiene con "getId()".
+                // --- IMPRESIÓN COMPLETA DE TODOS LOS CAMPOS ---
                 System.out.println("CODIGO DE LLAMADA: " + llamada.getCodigoLlamada() +
-                        ", NUMERO LLAMADO: " + llamada.getNumeroLlamado());
+                        ", NUMERO LLAMADO: " + llamada.getNumeroLlamado() +
+                        ", DURACION LLAMADA: " + llamada.getDuracionLlamada() +
+                        ", IMPORTE LLAMADA: " + llamada.getImporteLlamada());
             }
         } catch (Exception e) {
             System.err.println("Error al consultar: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
-
-/**
- * Método que consulta TODOS los registros usando HQL.
- */

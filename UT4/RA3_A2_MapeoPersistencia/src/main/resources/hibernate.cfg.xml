@@ -1,28 +1,23 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-
-        <!-- Conexión a la base de datos -->
+        <!-- Conexión a MySQL -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ut3?useSSL=false&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">123456</property>
 
-        <!-- Dialecto de Hibernate para MySQL -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <!-- Dialecto de MySQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <!-- Muestra SQL por consola -->
+        <!-- Mostrar SQL en consola -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <!-- DB schema: update, create, validate, etc. -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
-
-        <!-- Clase(s) mapeada(s) -->
+        <!-- Mapeo del POJO -->
         <mapping class="org.example.LlamadasEmitida"/>
-
     </session-factory>
 </hibernate-configuration>
