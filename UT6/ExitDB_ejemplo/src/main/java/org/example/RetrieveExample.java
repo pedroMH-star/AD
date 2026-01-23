@@ -14,7 +14,7 @@ public class RetrieveExample {
      * args[0] Should be the name of the collection to access
      * args[1] Should be the name of the resource to read from the collection
      */
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         final String driver = "org.exist.xmldb.DatabaseImpl";
 
@@ -38,7 +38,7 @@ public class RetrieveExample {
                 System.out.println(res.getContent());
             }
         } finally {
-            //dont forget to clean up!
+            // dont forget to clean up!
 
             if(res != null) {
                 try { ((EXistResource)res).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}

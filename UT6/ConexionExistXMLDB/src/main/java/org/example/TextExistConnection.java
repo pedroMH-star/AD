@@ -4,32 +4,31 @@ import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
-import java.util.List;
 
 /*
  * author: Pedro Martínez Herrero
  * @since: 13/01/2026
- * @until: 15/01/2026
+ * @until: 22/01/2026
  * Actividad: Conexión a eXistDB y consulta de colecciones
  */
 
 public class TextExistConnection {
 
     // URI de la colección raíz y credenciales
-    private static final String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db";
+    private static String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/Formacion";
     private static final String USER = "admin";
     private static final String PASSWORD = "";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception  {
+
+        // 1. Cargar y registrar el driver de eXistDB
+        Class cl = Class.forName("org.exist.xmldb.DatabaseImpl");
+        Database database = (Database) cl.getDeclaredConstructor().newInstance();
+        DatabaseManager.registerDatabase(database);
 
         Collection rootCollection = null;
 
         try {
-            // 1. Cargar y registrar el driver de eXistDB
-            Class<?> cl = Class.forName("org.exist.xmldb.DatabaseImpl");
-            Database database = (Database) cl.getDeclaredConstructor().newInstance();
-            DatabaseManager.registerDatabase(database);
-
             // 2. Conectar a la colección raíz
             rootCollection = DatabaseManager.getCollection(URI, USER, PASSWORD);
 
@@ -39,29 +38,24 @@ public class TextExistConnection {
             }
 
             System.out.println("Conexión establecida con eXistDB en " + URI);
-            System.out.println("Listado de colecciones y recursos de /db:");
+            System.out.println("Listado de colecciones y recursos de /db/Formacion: ");
 
             // 3. Listado recursivo de colecciones y recursos
-            listCollectionsRecursive(rootCollection, "/db");
+            listCollectionsRecursive(rootCollection, "/db/Formacion");
 
-        } catch (ClassNotFoundException e) {
+        } catch (XMLDBException xe) {
             System.err.println("Driver de eXistDB no encontrado.");
-            e.printStackTrace();
-        } catch (XMLDBException e) {
-            System.err.println("Error XMLDB al conectar o consultar la base de datos.");
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Error inesperado.");
-            e.printStackTrace();
+            xe.printStackTrace();
+
         } finally {
             // 4. Cierre seguro de la colección raíz
             if (rootCollection != null) {
                 try {
                     rootCollection.close();
                     System.out.println("Conexión cerrada correctamente.");
-                } catch (XMLDBException e) {
+                } catch (XMLDBException xe) {
                     System.err.println("Error al cerrar la colección raíz.");
-                    e.printStackTrace();
+                    xe.printStackTrace();
                 }
             }
         }
@@ -70,10 +64,10 @@ public class TextExistConnection {
     // Función recursiva que lista todas las subcolecciones y recursos XML
     private static void listCollectionsRecursive(Collection col, String path) throws XMLDBException {
 
-        // Listar subcolecciones (XML:DB ahora devuelve List<String>)
-        List<String> childCollections = col.listChildCollections();
+        // Listar subcolecciones (XML:DB ahora devuelve String[])
+        String[] childCollections = col.listChildCollections();
 
-        if (childCollections.isEmpty()) {
+        if (childCollections == null || childCollections.length == 0) {
             System.out.println("(No hay subcolecciones en " + path + ")");
         }
 
@@ -98,7 +92,7 @@ public class TextExistConnection {
         }
 
         // Listar recursos XML dentro de la colección actual
-        List<String> resources = col.listResources();
+        String[] resources = col.listResources();
         for (String res : resources) {
             System.out.println(" - Recurso: " + path + "/" + res);
         }
